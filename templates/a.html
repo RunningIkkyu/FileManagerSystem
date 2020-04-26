@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+</head>
+<body> 
+
+<div style="text-align:center"> 
+  <button onclick="playPause()">播放/暂停</button> 
+  <button onclick="makeBig()">放大</button>
+  <button onclick="makeSmall()">缩小</button>
+  <button onclick="makeNormal()">普通</button>
+  <br> 
+  <video id="video1" width="420" onclick="playPause()">
+    <source src="http://v26-dy.ixigua.com/9cc2d9ca13d9d1b57fb9e9a15af6f073/5ea545e7/video/m/22060da57df78ef4eefaa05d445390f2ea411634388800004cebbbff9f13/?a=1128&br=0&bt=1697&cr=0&cs=0&dr=0&ds=6&er=&l=20200426152708010008060132021B5A46&lr=&qs=0&rc=M3I0anFrbjd4bzMzZGkzM0ApNGZnOjc4ZGU8NzZnODxoZmdpa2UuXzJxcGJfLS1fLTBzczY2LS9iLTU0YDJiMzAxNi06Yw%3D%3D&vl=&vr=" type="video/mp4">
+    <source src="mov_bbb.ogg" type="video/ogg">
+    您的浏览器不支持 HTML5 video 标签。
+  </video>
+</div> 
+
+<script> 
+var myVideo=document.getElementById("video1"); 
+
+function playPause()
+{ 
+	if (myVideo.paused) 
+	  myVideo.play(); 
+	else 
+	  myVideo.pause(); 
+} 
+
+	function makeBig()
+{ 
+	myVideo.width=560; 
+} 
+
+	function makeSmall()
+{ 
+	myVideo.width=320; 
+} 
+
+	function makeNormal()
+{ 
+	myVideo.width=420; 
+} 
+</script> 
+
+</body> 
+</html>
