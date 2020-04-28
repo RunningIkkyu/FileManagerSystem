@@ -2,59 +2,35 @@
 <html lang="zh-CN">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="referrer" content="never">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-      <style>
-  body {
-    font: 20px Montserrat, sans-serif;
-    line-height: 1.8;
-    color: #f5f6f7;
-  }
-  p {font-size: 16px;}
-  .margin {margin-bottom: 45px;}
-  .bg-1 { 
-    background-color: #1abc9c; /* Green */
-    color: #ffffff;
-  }
-  .bg-2 { 
-    background-color: #474e5d; /* Dark Blue */
-    color: #ffffff;
-  }
-  .bg-3 { 
-    background-color: #ffffff; /* White */
-    color: #555555;
-  }
-  .bg-4 { 
-    background-color: #2f2f2f; /* Black Gray */
-    color: #fff;
-  }
-  .container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-  .navbar {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    letter-spacing: 5px;
-  }
-  .thumbnail{
-    border: 0;
-    border-radius: 0;
-  }
-  .navbar-nav  li a:hover {
-    color: #1abc9c !important;
-  }
+  <meta charset="utf-8">
+  <meta name="referrer" content="never">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>-->
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+  <!--<meta charset="utf-8">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+  <style>
+    .img-rounded{
+      padding-top: 40px;
+      padding-bottom: 10px;
+      max-width: 230px;
+      border-radius: 10px;
+    }
+    #user_name{
+        font-size: 12px;
+        float-right;
+    }
+    .img-circle{
+       border-radius: 10px;
+       max-width: 10%;
+    }
   </style>
 
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
@@ -71,87 +47,97 @@
 
 
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Me</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">WHO</a></li>
-        <li><a href="#">WHAT</a></li>
-        <li><a href="#">WHERE</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
-
-<!-- First Container -->
-<div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Who Am I?</h3>
-  <img src="https://www.w3schools.com/bootstrap/bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
-  <h3>I'm an adventurer</h3>
+<!-- A grey horizontal navbar that becomes vertical on small screens -->
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-11 column">
+			<nav class="navbar navbar-inverse" role="navigation">
+				<div class="navbar-header">
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">V-Platform</a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									 <a href="#">Action</a>
+								</li>
+								<li>
+									 <a href="#">Another action</a>
+								</li>
+								<li>
+									 <a href="#">Something else here</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">Separated link</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">One more separated link</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" placeholder="搜索视频" class="form-control" />
+						</div> <button type="submit" class="btn btn-default">Submit</button>
+					</form>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							 <a href="#">Link</a>
+						</li>
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									 <a href="#">Action</a>
+								</li>
+								<li>
+									 <a href="#">Another action</a>
+								</li>
+								<li>
+									 <a href="#">Something else here</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">Separated link</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				
+			</nav>
+		</div>
+	</div>
 </div>
 
-<!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
-  <h3 class="margin">What Am I?</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-  <a href="#" class="btn btn-default btn-lg">
-    <span class="glyphicon glyphicon-search"></span> Search
-  </a>
-</div>
 
 
-
-<!-- Third Container (Grid) -->
-<div class="container-fluid bg-3 text-center">    
-  <h3 class="margin">Where To Find Me?</h3><br>
+<!-- Video list Container (Grid) -->
+<div class="container">    
   <div class="row">
-    <!--<div class="col-sm-2">-->
-      <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
-      <!--<img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">-->
-    <!--</div>-->
     {% for video in video_list %}
-        <!--video place holder-->
-        <!--<div class="col-sm-2 col-md-4">-->
-        <div class="col-sm-2">
-          <div class="thumbnail">
-            <div class="caption">
-                <!--<h3>{{video.description}}</h3> -->
-                <img id="video-cover-btn" play_url="{{video.play_url}}" src="{{ video.cover_image }}" data-toggle="modal" data-target="#myModal{{video.video_id}}" alt="Video Cover">
-                <!--<p>{{video.user_name}}</p>-->
-                <!--<button type="button" id='btn' class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Launch demo modal </button>-->
-                <!-- Trigger the modal with a button -->
-                <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal{{video.video_id}}">Open Modal</button>-->
-                <!--<p><a href="#" class="btn btn-primary" role="button">播放</a> <a href="#" class="btn btn-default" role="button">链接</a></p>-->
+        <div class="col-sm-3">
+            <div class="row cover-row">
+                <img class="img-rounded" src="{{video.cover_image}}" onclick="window.open('{{video.play_url}}')" >
             </div>
-          </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal" id="myModal{{video.video_id}}" role="dialog">
-          <div class="modal-dialog modal-mm">
-            <!-- Modal content-->
-                <!--<video class="video-fluid z-depth-1" autoplay loop controls muted>-->
-                
-                  <div class="embed-responsive embed-responsive-16by9"> 
-                      <video width="640" height="960" controls autoplay>
-                          <!--<source src="https://vod-progressive.akamaized.net/exp=1587902995~acl=%2A%2F1508241126.mp4%2A~hmac=57e46233bb38108c7cc8b63d7ef2e1bb57289b8b991055f7bc1a54a89716a466/vimeo-prod-skyfire-std-us/01/3139/14/365696136/1508241126.mp4" type="video/mp4">-->
-                          <source src="http://v3-dy.ixigua.com/02c918b14d563e9d6e0b2145558a5935/5ea5649d/video/m/220477e7b0daccc4e60baebc695cfc6c0a11161df25d000086eaca7dd8ed/?a=1128&br=0&bt=2289&cr=0&cs=0&dr=0&ds=3&er=&l=202004261738060100080770482517DC13&lr=&qs=0&rc=M3ZzdmxkbDVsbDMzZGkzM0ApOjU8PGQ8Nzw7N2k4ZTs2N2dlaWc0cWhuNHJfLS0xLS9zczFfMTJfLTZgLjMyMmEwLmI6Yw%3D%3D&vl=&vr=" type="video/mp4">
-                      </video>
-                  </div> 
-              <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-              <!--</div>-->
-          </div>
+            <div class="row avatar-row">
+                <img id="avatar" src="http://icons.iconarchive.com/icons/thehoth/seo/256/seo-panda-icon.png" class="img-circle" >
+                <a id="user_name" href="https://www.douyin.com/share/user/{{video.user_id}}/" target="_blank">{{video.user_name[:12]}} </a>
+            </div>
+            <div class="row">
+            <p id="desc" data-toggle="tooltip" data-placement="top" title="{{video.description}}">{{video.description[:12] + "..."}} </p>
+            <p id="video_id">{{ video.video_id }} </p>
+            </div>
         </div>
     {% endfor %}
   </div>
@@ -159,29 +145,20 @@
 
 
 
-<!-- Buttons -->
-
-<!-- Links -->
-<a data-toggle="modal" href="#myModal"></a>
-
-<!-- Other elements -->
-<!--<p data-toggle="modal" data-target="#myModal">Open Modal</p>-->
-
-
 <!-- 翻页按钮 -->
 <nav aria-label="...">
   <ul class="pager">
       <li><a href="#">Previous</a></li>
       {% if  page < 7 %}
-          {% for page_number in range(1, 10) %}
-              <li><a href="{{url_for('video_list', page=page_number)}}">{{page_number}}</a></li>
-          {% endfor %}
-      {% else %}
-          {% for page_number in range(page-5, page+4) %}
-              <li><a href="{{url_for('video_list', page=page_number)}}">{{page_number}}</a></li>
-          {% endfor %}
-      {% endif %}
-      <li><a href="#">Previous</a></li>
+             {% for page_number in range(1, 10) %}
+             <li><a href="/videos?page={{ page_number }}">{{page_number}}</a></li>
+             {% endfor %}
+     {% else %}
+             {% for page_number in range(page-5, page+4) %}
+             <li><a href="/videos?page={{ page_number }}">{{page_number}}</a></li>
+             {% endfor %}
+     {% endif %}
+             <li><a href="#">Previous</a></li>
 
   </ul>
 </nav>
@@ -198,5 +175,11 @@
         document.getElementById("demo").innerHTML = this.responseText;
     }
 </script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });   
+});
+</script>
+
 
 </html>

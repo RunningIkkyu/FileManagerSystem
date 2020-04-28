@@ -20,12 +20,34 @@
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
   .bg-1 { 
+    height:611px;
     background-color: #1abc9c; /* Green */
     color: #ffffff;
+  }
+  .search{
+      margin:10px;
+        color: #ffffff;
+        font-size:20px;
+  }
+  input{
+      background-color:rgba(0,0,0,0);
+      border:0px;
   }
   .bg-2 { 
     background-color: #474e5d; /* Dark Blue */
     color: #ffffff;
+  }
+  span.count-number{
+      color: #fffff;
+      margin: 0;
+      padding: 0;
+  }
+  p.count-number{
+      color: #ffffff;
+      font-size: 70px;
+      margin: 0;
+      padding: 0;
+      font-weight: 700;
   }
   .bg-3 { 
     background-color: #ffffff; /* White */
@@ -84,8 +106,10 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <a class="navbar-brand navar" href="#">V-PLATFORM</a>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">UPLOAD</a></li>
-        <li><a href="#">LOGIN</a></li>
+        <li><a href="#">抖音达人库</a></li>
+        <li><a href="/videos?page=0">视频媒体库</a></li>
+        <!--<li><a href="#">上传视频</a></li>-->
+        <li><a href="#">登录</a></li>
       </ul>
     </div>
   </div>
@@ -94,31 +118,32 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Who Am I?</h3>
-  <img src="https://www.w3schools.com/bootstrap/bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
-  <h3>I'm an adventurer</h3>
+    <div class="row" style="margin:100px">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-3">
+            <p class='count-number'>{{video_count}}</p>
+            <span class='count-number'>抖音短视频总数</span>
+        </div>
+        <div class="col-sm-3">
+            <p class='count-number'>{{user_count}}</p>
+            <span class='count-number'>抖音号总数</span>
+        </div>
+    </div>
+    <div>
+        寻找抖音视频：
+        <a href="#" class="btn btn-default btn-lg">
+            <input type="text" >
+            <button class="btn bg-transparent"> <span class="glyphicon glyphicon-search"></span> Search </button>
+
+        </a>
+    </div>
 </div>
 
-<!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
-  <h3 class="margin">What Am I?</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-  <a href="#" class="btn btn-default btn-lg">
-    <span class="glyphicon glyphicon-search"></span> Search
-  </a>
-</div>
-
-
-
-<!-- Third Container (Grid) -->
-<div class="container-fluid bg-3 text-center">    
-  <h3 class="margin">Where To Find Me?</h3><br>
-  </div>
-</div>
 
 <!-- Footer -->
 <footer class="container-fluid bg-4 text-center">
-  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p> 
+    <p>Made By <a href="mail://GeekerLane@gmail.com">Lane<p>
 </footer>
 
 
