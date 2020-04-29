@@ -6,7 +6,8 @@
   <meta name="referrer" content="never">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
@@ -17,6 +18,27 @@
   <!--<meta charset="utf-8">-->
   <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
   <style>
+    .go-page{
+        border-radius:10px;
+        border:1;
+        padding-left:10px;
+        width:100px; 
+    }
+    a {
+      cursor:pointer;
+    }
+    .img-container{
+      position: relative;
+      color: white;
+    }
+    .digg-count {
+      position: absolute;
+      bottom: 8px;
+      right: 70px;
+    }
+    .digg-count p{
+        font-size:20px;
+    }
     .img-rounded{
       padding-top: 40px;
       padding-bottom: 10px;
@@ -52,42 +74,48 @@
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-11 column">
-			<nav class="navbar navbar-inverse" role="navigation">
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 				<div class="navbar-header">
-					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">V-Platform</a>
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="/">V-Platform</a>
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="dropdown">
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">筛选<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
-								<li>
-									 <a href="#">Action</a>
-								</li>
-								<li>
-									 <a href="#">Another action</a>
-								</li>
-								<li>
-									 <a href="#">Something else here</a>
-								</li>
-								<li class="divider">
-								</li>
-								<li>
-									 <a href="#">Separated link</a>
-								</li>
-								<li class="divider">
-								</li>
-								<li>
-									 <a href="#">One more separated link</a>
-								</li>
+								<li> <a href="#">只看粤语账号 </a> </li>
+								<li> <a href="#">只看非粤语账号 </a> </li>
+								<li class="divider"> </li>
+								<li> <a href="#">清空筛选条件</a> </li>
 							</ul>
+            </li>
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">排序方式<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li> <a href="#">数据抓取时间↑ </a> </li>
+								<li> <a href="#">数据更新时间↓ </a> </li>
+								<li class="divider"> </li>
+								<li> <a href="#">清空排序</a> </li>
+							</ul>
+            </li>
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">搜索方式<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+                <li> <a id="search-condition-0" class="search-condition" onclick=changeCheckStatus(this)>搜索视频id</a> </li>
+                <li> <a id="search-condition-1" class="search-condition" onclick=changeCheckStatus(this)>搜索用户名</a> </li>
+								<li> <a id="search-condition-2" class="search-condition" onclick=changeCheckStatus(this)>搜索用户user_id</a> </li>
+                <li> <a id="search-condition-3" class="search-condition" onclick=changeCheckStatus(this)>视频标题模糊搜索</a> </li>
+								<!--<li> <a href="#">搜索抖音id</a> </li>-->
+							</ul>
+						</li>
 						</li>
 					</ul>
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
-							<input type="text" placeholder="搜索视频" class="form-control" />
-						</div> <button type="submit" class="btn btn-default">Submit</button>
+							<input id="abcdefg" type="text" placeholder="搜索视频（只支持视频id）" class="form-control" />
+						</div> 
+            <button id='search-btn' οnclick=search_jump() class="btn">搜索</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
@@ -120,66 +148,254 @@
 	</div>
 </div>
 
+<!-- 翻页按钮 -->
+<ul class="pager" style="margin-top:80px;">
+    <li><a onclick=jumpPage(1)>首页</a></li>
+  <li><a onclick=previousPage()>上一页</a></li>
+  {% if  page < 7 %}
+         {% for page_number in range(1, 10) %}
+         <li><a href="/videos?page={{ page_number }}">{{page_number}}</a></li>
+         {% endfor %}
+ {% else %}
+         {% for page_number in range(page-5, page+4) %}
+             {% if page_number <= page_count %}
+                 <li><a href="/videos?page={{ page_number }}">{{page_number}}</a></li>
+             {% endif %}
+             {% endfor %}
+ {% endif %}
+     <li><a onclick=nextPage()>下一页</a></li>
+     <li><a onclick=jumpPage({{page_count}})>末页</a></li>
+     <input type="number" class="go-page" id="go-page1" placeholder="跳转到..." id="mail" name="email">
+     <li><a onclick=goPage(1)>Go</a></li>
+     <!--<li><a>筛选<svg class="bi bi-filter" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">-->
+  <path fill-rule="evenodd" d="M6 10.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5zm-2-3a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm-2-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+</svg></a></li>
+</ul>
+
+
+
 
 
 <!-- Video list Container (Grid) -->
 <div class="container">    
-  <div class="row">
-    {% for video in video_list %}
-        <div class="col-sm-3">
-            <div class="row cover-row">
-                <img class="img-rounded" src="{{video.cover_image}}" onclick="window.open('{{video.play_url}}')" >
-            </div>
-            <div class="row avatar-row">
-                <img id="avatar" src="http://icons.iconarchive.com/icons/thehoth/seo/256/seo-panda-icon.png" class="img-circle" >
-                <a id="user_name" href="https://www.douyin.com/share/user/{{video.user_id}}/" target="_blank">{{video.user_name[:12]}} </a>
-            </div>
-            <div class="row">
-            <p id="desc" data-toggle="tooltip" data-placement="top" title="{{video.description}}">{{video.description[:12] + "..."}} </p>
-            <p id="video_id">{{ video.video_id }} </p>
-            </div>
-        </div>
-    {% endfor %}
+<div class="row">
+
+{% for video in video_list %}
+<div class="col-sm-3">
+  <!--start of img-container-->
+  <div class="img-container">
+    <div class="row cover-row">
+      <img id='video-cover' class="img-rounded" src="{{video.cover_image}}" play_url="{{video.play_url}}" onclick="redirect(this)" >
+    </div>
+    <!--start of digg-count-->
+    <div class="digg-count">
+      <p>
+        <svg class="bi bi-heart" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 01.176-.17C12.72-3.042 23.333 4.867 8 15z" clip-rule="evenodd"/>
+        </svg>   
+        {{(video.like_count/10000)|string + 'w' if video.like_count > 10000 else video.like_count}}
+      </p>
+    </div> 
+    <!--end of digg-count-->
+  </div>
+  <!--end oo img-container-->
+  <div class="down-container">
+      <div class="row avatar-row">
+        <img id="avatar" src="http://icons.iconarchive.com/icons/thehoth/seo/256/seo-panda-icon.png" class="img-circle" >
+        <a id="user_name" href="https://www.douyin.com/share/user/{{video.user_id}}/" target="_blank">{{video.user_name[:12]}} </a>
+      </div>
+      <div class="row">
+        <!--<p id="desc" data-toggle="tooltip" data-placement="top" title="{{video.description}}">{{video.description[:12] + "..."}} </p>-->
+        <input for="inputType" data-toggle="tooltip" data-placement="top" title="{{video.description}}" value="{{video.description}}" readonly style="border:0px;">
+        <label id="video_id">{{ video.video_id }} </label>
+      </div> 
   </div>
 </div>
+{% endfor %}
 
-
+</div>  <!--End of row-->
+</div> <!--End of container-->
 
 <!-- 翻页按钮 -->
-<nav aria-label="...">
-  <ul class="pager">
-      <li><a href="#">Previous</a></li>
-      {% if  page < 7 %}
-             {% for page_number in range(1, 10) %}
-             <li><a href="/videos?page={{ page_number }}">{{page_number}}</a></li>
+<ul class="pager" style="margin-top:80px;">
+  <li><a href="/videos?page=0">首页</a></li>
+  <li><a onclick=previousPage()>上一页</a></li>
+  {% if  page < 7 %}
+         {% for page_number in range(1, 10) %}
+         <li><a href="/videos?page={{ page_number }}">{{page_number}}</a></li>
+         {% endfor %}
+ {% else %}
+         {% for page_number in range(page-5, page+4) %}
+             {% if page_number <= page_count %}
+                 <li><a href="/videos?page={{ page_number }}">{{page_number}}</a></li>
+             {% endif %}
              {% endfor %}
-     {% else %}
-             {% for page_number in range(page-5, page+4) %}
-             <li><a href="/videos?page={{ page_number }}">{{page_number}}</a></li>
-             {% endfor %}
-     {% endif %}
-             <li><a href="#">Previous</a></li>
+ {% endif %}
+     <li><a onclick=nextPage()>下一页</a></li>
+     <li><a href="/videos?page={{page_count}}">末页</a></li>
+     <input type="number" class="go-page" id="go-page2" placeholder="跳转到..." id="mail" name="email">
+     <li><a onclick=goPage(2)>Go</a></li>
 
-  </ul>
-</nav>
+</ul>
 
 
-<div class="container">
 
-  
-</div>
 
+
+
+
+
+<!--Redirect douyin video url.-->
 <script>
-    var btn = document.getElementById("video-cover-btn");
-    btn.onclick =function(){
-        document.getElementById("demo").innerHTML = this.responseText;
+    var search_by = 0;
+    initSearchBy()
+
+    function initSearchBy(){
+        search_by = getQueryVariable("search_by");
+        if (search_by == ''){search_by=0}
+        if (search_by > 4 || search_by < 0){search_by=0;}
+        ele = document.getElementById('search-condition-'+search_by)
+        changeCheckStatus(ele)
     }
+
+    function redirect(ele){
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                // document.getElementById("video-cover").setAttribute('')=xmlhttp.responseText;
+                a =  xmlhttp.responseText
+                a = a.replace('\"', "")
+                window.open(a, '_blank')
+            }
+        }
+        var play_url = ele.attributes.play_url.value
+        console.log(play_url)
+        xmlhttp.open("GET","/api/douyin/video/redirect_url/?url="+escape(play_url),true);
+        xmlhttp.send();
+    }
+
+    document.getElementById("search-btn").addEventListener("click", search_jump);
+
+    function search_jump(){
+        var inputVal = document.getElementById("abcdefg").value;
+        search_text = '/videos/?page=1&search_str='  + inputVal
+        window.open(search_text);
+    }
+
+
+function changeCheckStatus(ele){
+    s = ele.innerHTML;
+    // If did not find √, mark it.
+    if (s.indexOf('√') == -1){
+        clearAllSearchMark();
+        s = ele.innerHTML + '√';
+        ele.innerHTML = s;
+    }
+    // If find √, unmarded it.
+    // else{
+    //     s = s.replace('√', '')
+    //     ele.innerHTML = s;
+    // }
+}
+
+function clearAllSearchMark(){
+    eles = document.getElementsByClassName('search-condition');
+    for(var i = 0; i < eles.length; i++){
+        ele = eles[i];
+        s = ele.innerHTML;
+        if (s.indexOf('√') != -1){
+            s = s.replace('√', '')
+            ele.innerHTML = s;
+        }
+    }
+}
+
+
+function getQueryArray(){
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    return vars
+}
+
+function deleteQuery(query, field){
+    // Delete one query once.
+    var newVars = []
+    var vars = query
+    for (var i=0;i < vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] != field){newVars.push(vars[i]);}
+    }
+    return newVars;
+}
+
+function updateQuery(query, field, value){
+    var newVars = [];
+    vars = query;
+    for (var i=0;i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] != field){
+            newVars.push(vars[i]);
+        } 
+    }
+    newVars.push(field+'='+value);
+    return newVars;
+}
+
+function getQueryVariable(variable)
+{
+    vars = getQueryArray()
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+function nextPage(){
+    var page = getQueryVariable("page");
+    if(page == false){
+        page = 1;
+        page_num=page;
+    }
+    else{
+      var page_num = parseInt(page);
+      next_page = page_num+1 ;
+    }
+    jumpPage(next_page)
+    //window.open('/videos/?page='+next_page.toString(), '_self');
+}
+
+function previousPage(){
+    var page = getQueryVariable("page");
+    if(page == false){
+        page = 1;
+        page_num=page;
+    }
+    else{
+      var page_num = parseInt(page);
+      next_page = page_num-1 ;
+    }
+    window.open('/videos/?page='+next_page.toString(), '_self');
+}
+
+function jumpPage(page){
+    query = getQueryArray();
+    query = updateQuery(query, "page", page);
+    window.open('/videos/?'+query.join('&'), '_self');
+}
+
+function goPage(num){
+    var inputVar = document.getElementById("go-page"+num).value;
+    if (inputVar==''){alert('页码不能为空');return;}
+    //window.open('/videos/?page='+inputVar, '_self');
+    jumpPage(inputVar)
+}
+
+
+
 </script>
-<script>
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });   
-});
-</script>
+
 
 
 </html>
