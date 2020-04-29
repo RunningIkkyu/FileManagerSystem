@@ -57,7 +57,6 @@ async def videos(request: Request,
                  page:int = Query(-1, title='Page of video list'),
                  cantonese:bool = Query(True, title='Filter videos of Cantonese user.'),
                  sort_by_like_count:int = Query(-1, title="Sort videos by like count."), 
-                 video_id:str = Query('', title='Search video_id.'),
                  search_by:str = Query(0, title='Search string.'),
                  search_str:str = Query('', title='Search string.'),
                  ):
@@ -66,14 +65,14 @@ async def videos(request: Request,
     # Redirect
     page, video_count, video_list = await get_video_list(page,
             cantonese=cantonese,
+            search_by=search_by,
             sort_by_like_count=sort_by_like_count,
-            video_id=video_id,
             search_str=search_str,
             )
     # Calculate page count.
     page_count = int(math.ceil(video_count / video_count_each_page))
-    if page > page_count:
-        return RedirectResponse('/videos/?page=0')
+    # if page > page_count:
+        # return RedirectResponse('/videos/?page=0')
     # Render templates.
     return templates.TemplateResponse(
             "video_list.html", 
@@ -102,7 +101,6 @@ async def get_video_list(
         page: int = Path(1, title='Page of video list'),
         cantonese:bool = Query(True, title='Filter videos of Cantonese user.'),
         sort_by_like_count:int = -1,
-        video_id:str = '',
         search_by: str = 0,
         search_str:str = '',
         ):
@@ -112,11 +110,17 @@ async def get_video_list(
         query_dict['user_id'] = {'$in': canton_list}
     # if search_str:
         # query_dict['$text'] = {'$search': search_str}
-    if search_str:
-        query_dict['video_id'] = search_str
-    if video_id:
-        query_dict = {'video_id': video_id}
+    if search_str and int(search_by) == 0:
+        query_dict = {'video_id': search_str}
+    elif search_str and int(search_by) == 1:
+        query_dict = {'user_name': {'$regex': f'.*{search_str}.*'}}
+    elif search_str and int(search_by) == 2:
+        query_dict = {'user_id': search_str}
+    # if search_str and int(search_by) == 2:
+        # query_dict = {'video_id': video_id}
 
+    print(search_by)
+    print(search_str)
     print(query_dict)
     video_count = get_video_count(query_dict)
     # If page not correct, let page equals to zero.
