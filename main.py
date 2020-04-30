@@ -117,8 +117,8 @@ async def get_video_list(
     elif search_str and int(search_by) == 3:
         # query_dict['$text'] = {'$search': search_str}
         query_dict = {'description': {'$regex': f'.*{search_str}.*'}}
-    elif cantonese:
-        query_dict['user_id'] = {'$in': canton_list}
+    # elif cantonese:
+        # query_dict['user_id'] = {'$in': canton_list}
     # if search_str and int(search_by) == 2:
         # query_dict = {'video_id': video_id}
 
@@ -134,10 +134,9 @@ async def get_video_list(
         page = 1
     start_ind = (page-1) * video_count_each_page
     video_list = []
-                      # .sort('like_count',DESCENDING)\
     for video_data in video_collection\
                       .find(query_dict)\
-                      .sort('save_time',DESCENDING)\
+                      .sort([('save_time',DESCENDING), ('like_count', DESCENDING)])\
                       [start_ind:start_ind+video_count_each_page]:
         #pprint(video_data)
         video_data['_id'] = str(video_data['_id'])
