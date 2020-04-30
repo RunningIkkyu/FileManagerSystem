@@ -8,12 +8,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-from pymongo import MongoClient, DESCENDING
+from pymongo import MongoClient, DESCENDING, ASCENDING
 from pprint import pprint
 from dbconfig import MONGO_CONFIG
 from fastapi.staticfiles import StaticFiles
 from canton_user import CANTON_USER_LIST
 from not_sure_canton import NOT_SURE_CANTON_USER
+from to_be_add import to_be_add_user_list
 
 
 app = FastAPI()
@@ -106,16 +107,18 @@ async def get_video_list(
         ):
     query_dict = {}
     canton_list = CANTON_USER_LIST + NOT_SURE_CANTON_USER
-    if cantonese:
-        query_dict['user_id'] = {'$in': canton_list}
-    # if search_str:
-        # query_dict['$text'] = {'$search': search_str}
+    canton_list = to_be_add_user_list
     if search_str and int(search_by) == 0:
         query_dict = {'video_id': search_str}
     elif search_str and int(search_by) == 1:
         query_dict = {'user_name': {'$regex': f'.*{search_str}.*'}}
     elif search_str and int(search_by) == 2:
         query_dict = {'user_id': search_str}
+    elif search_str and int(search_by) == 3:
+        # query_dict['$text'] = {'$search': search_str}
+        query_dict = {'description': {'$regex': f'.*{search_str}.*'}}
+    elif cantonese:
+        query_dict['user_id'] = {'$in': canton_list}
     # if search_str and int(search_by) == 2:
         # query_dict = {'video_id': video_id}
 
@@ -131,9 +134,10 @@ async def get_video_list(
         page = 1
     start_ind = (page-1) * video_count_each_page
     video_list = []
+                      # .sort('like_count',DESCENDING)\
     for video_data in video_collection\
                       .find(query_dict)\
-                      .sort('like_count',DESCENDING)\
+                      .sort('save_time',DESCENDING)\
                       [start_ind:start_ind+video_count_each_page]:
         #pprint(video_data)
         video_data['_id'] = str(video_data['_id'])
